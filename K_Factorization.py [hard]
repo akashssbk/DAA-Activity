@@ -1,0 +1,40 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the kFactorization function below.
+ans=[]
+def kFactorization(n, A):
+    ans.insert(0,n)
+    if n!=1:
+        flag=1
+        for a in A:
+            if(n%a==0):
+                flag=0;
+                kFactorization(int(n/a), A)
+                break
+        if(flag==1):
+            ans.clear()
+            ans.append(-1)
+    return ans
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nk = input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    A = list(map(int, input().rstrip().split()))
+    A.sort(reverse=True)
+    result = kFactorization(n, A)
+
+    fptr.write(' '.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
